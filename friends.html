@@ -1,0 +1,29 @@
+
+<div id="accountInfo">                                                          
+                                                                                
+</div>                                                                          
+                                                                                
+<script>                                                                           
+  FB.login(function(){                                                           
+    FB.api(                                                                      
+        "/me/friends?fields=name,picture",                                      
+        function (response) {                                                    
+          if (response && !response.error) {                                     
+            console.log('Got a response.');                                     
+            var friends = response.data;                                        
+            console.log(friends);                                               
+            var html = "<ul style='list-style-type: none;'>";                   
+            for (var i = 0; i < friends.length; i++) {                          
+              html += "<li><img style='margin: 5px; border-radius: 10px;' src='" + friends[i].picture.data.url + "'></img><b>" + friends[i].name + "</b></li>";                     
+            }                                                                   
+            html += "</ul>";                                                    
+            console.log(html);                                                  
+            document.getElementById("accountInfo").innerHTML = html;            
+          } else {                                                               
+            console.log('An error occured.');                                   
+          }                                                                     
+        }                                                                        
+    );                                                                           
+  }, {scope: 'user_friends'});                                                   
+                                                                                   
+</script> 
